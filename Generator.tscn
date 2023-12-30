@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://icon.png" type="Texture" id=1]
+[ext_resource path="res://Generator.gd" type="Script" id=2]
+[ext_resource path="res://GeneratorUI.gd" type="Script" id=3]
+
+[node name="Generator" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Button" type="TextureButton" parent="."]
+margin_left = 484.0
+margin_top = 270.0
+margin_right = 548.0
+margin_bottom = 334.0
+hint_tooltip = "test"
+texture_normal = ExtResource( 1 )
+script = ExtResource( 3 )
+
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]

@@ -1,0 +1,63 @@
+[gd_scene load_steps=20 format=2]
+
+[ext_resource path="res://Comet.gd" type="Script" id=1]
+[ext_resource path="res://img/comet_anim/frame0005.png" type="Texture" id=2]
+[ext_resource path="res://img/comet_anim/frame0007.png" type="Texture" id=3]
+[ext_resource path="res://img/comet_anim/frame0009.png" type="Texture" id=4]
+[ext_resource path="res://img/comet_anim/frame0012.png" type="Texture" id=5]
+[ext_resource path="res://img/comet_anim/frame0010.png" type="Texture" id=6]
+[ext_resource path="res://img/comet_anim/frame0008.png" type="Texture" id=7]
+[ext_resource path="res://img/comet_anim/frame0004.png" type="Texture" id=8]
+[ext_resource path="res://img/comet_anim/frame0006.png" type="Texture" id=9]
+[ext_resource path="res://img/comet_anim/frame0011.png" type="Texture" id=10]
+[ext_resource path="res://img/comet_anim/frame0001.png" type="Texture" id=11]
+[ext_resource path="res://img/comet_anim/frame0002.png" type="Texture" id=12]
+[ext_resource path="res://img/comet_anim/frame0003.png" type="Texture" id=13]
+[ext_resource path="res://img/comet_anim/frame0000.png" type="Texture" id=14]
+[ext_resource path="res://img/comet_anim/frame0013.png" type="Texture" id=15]
+[ext_resource path="res://fonts/Tangerine.tres" type="DynamicFont" id=16]
+[ext_resource path="res://fonts/Tangerine-Bold.tres" type="DynamicFont" id=17]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 14 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 8 ), ExtResource( 2 ), ExtResource( 9 ), ExtResource( 3 ), ExtResource( 7 ), ExtResource( 4 ), ExtResource( 6 ), ExtResource( 10 ), ExtResource( 5 ), ExtResource( 15 ) ],
+"loop": true,
+"name": "default",
+"speed": 20.0
+} ]
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 21.0238
+
+[node name="CometPath" type="Node2D"]
+position = Vector2( 535, 374 )
+script = ExtResource( 1 )
+randomize_transform = true
+
+[node name="Comet" type="KinematicBody2D" parent="."]
+input_pickable = true
+
+[node name="Sprite" type="AnimatedSprite" parent="Comet"]
+scale = Vector2( 0.5, 0.5 )
+frames = SubResource( 1 )
+frame = 9
+playing = true
+flip_h = true
+flip_v = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Comet"]
+shape = SubResource( 2 )
+
+[node name="Name" type="RichTextLabel" parent="Comet"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 88.0
+margin_bottom = 50.0
+custom_colors/default_color = Color( 0.498039, 0.498039, 0.498039, 1 )
+custom_fonts/bold_italics_font = ExtResource( 17 )
+custom_fonts/normal_font = ExtResource( 16 )
+bbcode_enabled = true
+bbcode_text = "Kepler 22b"
+text = "Kepler 22b"
+
+[connection signal="input_event" from="Comet" to="." method="_on_Comet_input_event"]

@@ -60,26 +60,23 @@ func make_tooltip(_text: String) -> Control:
 	var flavor = "[i][color=#%s]%s[/color][/i]" % [Globals.COLOR_FLAVOR.to_html(), tooltip_flavor]
 	var description: String
 	if power_consumption_per_gen == 0:
-		description = "Generates %s  [img=%d]%s[/img]  (%s each)" % [
+		description = "Generates %s %s (%s each)" % [
 			Formatter.format_number(_amt * power_per_gen), 
-			tooltip.get_node("FlavorAndDesc").get_font("normal_font").get_height() - 5,
-			Globals.ICON_LORE.resource_path,
+			Globals.LORE_INFO.bbcode(tooltip.get_node("FlavorAndDesc")),
 			Formatter.format_number(power_per_gen)
 		]
 	else:
-		description = "Consumes %s  [img=%d]%s[/img]  to generate %s (-%s/+%s each)" % [
+		description = "Consumes %s %s to generate %s (-%s/+%s each)" % [
 			Formatter.format_number(_amt * power_consumption_per_gen),
-			tooltip.get_node("FlavorAndDesc").get_font("normal_font").get_height() - 5,
-			Globals.ICON_LORE.resource_path,
+			Globals.LORE_INFO.bbcode(tooltip.get_node("FlavorAndDesc")),
 			Formatter.format_number(_amt * power_per_gen),
 			Formatter.format_number(power_consumption_per_gen),
 			Formatter.format_number(power_per_gen)
 		]
 	tooltip.get_node("FlavorAndDesc").bbcode_text = "%s\n%s" % [flavor, description]
-	tooltip.get_node("CostStats/Amt").bbcode_text = "%s  [img=%d]%s[/img]" % [
+	tooltip.get_node("CostStats/Amt").bbcode_text = "%s %s" % [
 		Formatter.format_number(next_cost()),
-		tooltip.get_node("CostStats/Amt").get_font("normal_font").get_height() - 5,
-		Globals.ICON_LORE.resource_path,
+		Globals.LORE_INFO.bbcode(tooltip.get_node("CostStats/Amt")),
 	]
 	tooltip.get_node("OwnedStats/Amt").bbcode_text = Formatter.format_number(_amt)
 	return tooltipRoot

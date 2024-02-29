@@ -9,10 +9,20 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Object",
+"class": "Boost",
+"language": "GDScript",
+"path": "res://Boost.gd"
+}, {
 "base": "ColorRect",
 "class": "ColorTile",
 "language": "GDScript",
 "path": "res://addons/color-palette/ColorTile.gd"
+}, {
+"base": "Object",
+"class": "CurrencyAmount",
+"language": "GDScript",
+"path": "res://CurrencyAmount.gd"
 }, {
 "base": "Container",
 "class": "FlexGridContainer",
@@ -23,6 +33,11 @@ _global_script_classes=[ {
 "class": "Generator",
 "language": "GDScript",
 "path": "res://Generator.gd"
+}, {
+"base": "Object",
+"class": "IconInfo",
+"language": "GDScript",
+"path": "res://IconInfo.gd"
 }, {
 "base": "Reference",
 "class": "Palette",
@@ -35,9 +50,12 @@ _global_script_classes=[ {
 "path": "res://addons/color-palette/PaletteImporter.gd"
 } ]
 _global_script_class_icons={
+"Boost": "",
 "ColorTile": "",
+"CurrencyAmount": "",
 "FlexGridContainer": "res://addons/color-palette/utilities/FlexGridContainerIcon.png",
 "Generator": "",
+"IconInfo": "",
 "Palette": "",
 "PaletteImporter": ""
 }

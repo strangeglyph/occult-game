@@ -9,6 +9,7 @@ var _comets_active = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	randomize()
 	_setup_console()
 	
 	_connect_generator($Candle)

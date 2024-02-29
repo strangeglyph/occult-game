@@ -49,7 +49,7 @@ const _SUFFIX_OPTS: Array = [
 	" (cont.)", # contested
 ]
 
-var name: String = ""
+var comet_name: String = ""
 
 export var randomize_transform = false
 var _steepness = 1.0
@@ -80,11 +80,16 @@ func _ready():
 		
 func randomize_transform():
 	self.position.y -= rand_range(Y_OFFSET_LOWER_BOUND_FRAC, Y_OFFSET_UPPER_BOUND_FRAC) * get_viewport().size.y
-	self.rotation = rand_range(0.0, 360.0)
+	self.rotation_degrees = rand_range(0.0, 360.0)
+	$Comet/Name.rect_rotation = 360 - self.rotation_degrees
 	self._steepness = rand_range(STEEPNESS_LOWER_BOUND, STEEPNESS_UPPER_BOUND)
 
 func randomize_name():
-	var core = 
+	var core = _NAME_OPTS[randi() % _NAME_OPTS.size()]
+	var num = randi() % 9999
+	var suffix = _SUFFIX_OPTS[randi() % _SUFFIX_OPTS.size()]
+	comet_name = "%s %d%s" % [core, num, suffix]
+	$Comet/Name.bbcode_text = comet_name
 	
 func _process(delta: float):
 	_elapsed_time += delta
@@ -111,7 +116,8 @@ func _update_comet_pos(delta: float):
 	$Comet.position = $Comet.position.move_toward(to, dist)
 	$Comet.position.y = _steepness * _at_x($Comet.position.x)
 	var derivative = -2 * _steepness * 0.001 * $Comet.position.x
-	$Comet.rotation = Vector2(-1, -derivative).angle()
+	$Comet/Sprite.rotation = Vector2(-1, -derivative).angle()
+	
 
 func _draw():
 	var elapsed_frac = _elapsed_time / path_fade_in_time

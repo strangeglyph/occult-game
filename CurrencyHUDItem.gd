@@ -1,20 +1,22 @@
+tool
 extends Control
 
 
-export(CurrencyService.Type) var type: int
-export var currency_name: String = "Name"
-export var flavor: String = "Flavor"
-export var color: Color = Color.wheat
-export var icon: Texture = load("res://icon.png")
+export(String, "Lore") var type_name: String
+var type: Currency
 export var init_visible: bool = false
 
 func _ready():
-	$Icon.texture = icon
+	var internal_name = "CURR_%s" % type_name.to_upper().replace(" ", "_")
+	assert(internal_name in Globals)
+	type = Globals.get(internal_name)	
+
+	$Icon.texture = type.icon
 	
 	$Name.clear()
 	$Name.push_bold()
-	$Name.push_color(color)
-	$Name.add_text(name)
+	$Name.push_color(type.color)
+	$Name.add_text(type.name)
 	
 	$Count.clear()
 	$Count.add_text(Formatter.format_number(CurrencyService.lookup(type)))
@@ -28,14 +30,14 @@ func _ready():
 func _make_custom_tooltip(for_text):
 	var tooltipRoot = preload("res://CurrencyHUDTooltip.tscn").instance()
 	var name = tooltipRoot.get_node("Panel/Name")
-	name.bbcode_text = "[b][color=#%s]%s[/color][/b]" % [self.color.to_html(), self.currency_name]
+	name.bbcode_text = "[b][color=#%s]%s[/color][/b]" % [self.type.color.to_html(), self.type.name]
 	
 	var flavor = tooltipRoot.get_node("Panel/Flavor")
-	flavor.bbcode_text = "[i][color=#%s]%s[/color][/i]" % [Globals.COLOR_FLAVOR.to_html(), self.flavor]
+	flavor.bbcode_text = "[i][color=#%s]%s[/color][/i]" % [Globals.COLOR_FLAVOR.to_html(), self.type.flavor]
 	
 	return tooltipRoot
 
-func _on_currency_updated(type: int, old: int, new: int):
+func _on_currency_updated(type: Currency, old: int, new: int):
 	if type != self.type:
 		return
 	$Count.clear()

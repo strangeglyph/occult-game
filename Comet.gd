@@ -90,7 +90,8 @@ func randomize_name():
 	var suffix = _SUFFIX_OPTS[randi() % _SUFFIX_OPTS.size()]
 	comet_name = "%s %d%s" % [core, num, suffix]
 	$Comet/Name.bbcode_text = comet_name
-	
+
+
 func _process(delta: float):
 	_elapsed_time += delta
 	if _elapsed_time <= path_fade_in_time:

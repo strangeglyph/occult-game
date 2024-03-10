@@ -7,6 +7,8 @@
 [node name="Control" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = -844.0
+margin_bottom = -557.0
 hint_tooltip = "placeholder"
 script = ExtResource( 1 )
 color = Color( 0.647059, 0, 0.737255, 1 )

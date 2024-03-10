@@ -20,9 +20,19 @@ _global_script_classes=[ {
 "path": "res://addons/color-palette/ColorTile.gd"
 }, {
 "base": "Object",
+"class": "Currency",
+"language": "GDScript",
+"path": "res://Currency.gd"
+}, {
+"base": "Object",
 "class": "CurrencyAmount",
 "language": "GDScript",
 "path": "res://CurrencyAmount.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "DragDroppable",
+"language": "GDScript",
+"path": "res://DragDroppable.gd"
 }, {
 "base": "Container",
 "class": "FlexGridContainer",
@@ -33,11 +43,6 @@ _global_script_classes=[ {
 "class": "Generator",
 "language": "GDScript",
 "path": "res://Generator.gd"
-}, {
-"base": "Object",
-"class": "IconInfo",
-"language": "GDScript",
-"path": "res://IconInfo.gd"
 }, {
 "base": "Reference",
 "class": "Palette",
@@ -52,10 +57,11 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "Boost": "",
 "ColorTile": "",
+"Currency": "",
 "CurrencyAmount": "",
+"DragDroppable": "",
 "FlexGridContainer": "res://addons/color-palette/utilities/FlexGridContainerIcon.png",
 "Generator": "",
-"IconInfo": "",
 "Palette": "",
 "PaletteImporter": ""
 }
@@ -68,10 +74,15 @@ config/icon="res://icon.png"
 
 [autoload]
 
-CurrencyService="*res://CurrencyService.gd"
-Formatter="*res://Formatter.gd"
-Console="*res://addons/quentincaffeino/console/src/Console.tscn"
 Globals="*res://Globals.gd"
+Formatter="*res://Formatter.gd"
+RootViewportFiltering="*res://RootViewportFiltering.gd"
+Console="*res://addons/quentincaffeino/console/src/Console.tscn"
+CurrencyService="*res://CurrencyService.gd"
+
+[display]
+
+window/stretch/mode="2d"
 
 [editor_plugins]
 

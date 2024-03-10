@@ -26,7 +26,7 @@ func next_cost() -> int:
 	return int(initial_cost[-1] * pow(cost_scale, _amt - initial_cost.size() + 1))
 
 func _on_Button_pressed():
-	if CurrencyService.spend_if_possible(CurrencyService.Type.LORE, next_cost()):
+	if CurrencyService.spend_if_possible(Globals.CURR_LORE, next_cost()):
 		_amt += 1
 		emit_signal("bought", _amt - 1, _amt)
 
@@ -40,7 +40,7 @@ func _on_orbital_updated(id, old_rotation, new_rotation):
 	var entered = (new_rotation >= orbital_trigger_angle &&
 			(old_rotation < orbital_trigger_angle || old_rotation > new_rotation))
 	if entered:
-		CurrencyService.gain(CurrencyService.Type.LORE, _amt * power_per_gen)
+		CurrencyService.gain(Globals.CURR_LORE, _amt * power_per_gen)
 		
 
 func set_enabled(is_enabled: bool):
@@ -60,23 +60,22 @@ func make_tooltip(_text: String) -> Control:
 	var flavor = "[i][color=#%s]%s[/color][/i]" % [Globals.COLOR_FLAVOR.to_html(), tooltip_flavor]
 	var description: String
 	if power_consumption_per_gen == 0:
-		description = "Generates %s %s (%s each)" % [
+		description = "Generates %s  %s  (%s each)" % [
 			Formatter.format_number(_amt * power_per_gen), 
-			Globals.LORE_INFO.bbcode(tooltip.get_node("FlavorAndDesc")),
+			Globals.CURR_LORE.bbcode_with_name(tooltip.get_node("FlavorAndDesc")),
 			Formatter.format_number(power_per_gen)
 		]
 	else:
-		description = "Consumes %s %s to generate %s (-%s/+%s each)" % [
+		description = "Consumes %s  %s  to generate %s (-%s/+%s each)" % [
 			Formatter.format_number(_amt * power_consumption_per_gen),
-			Globals.LORE_INFO.bbcode(tooltip.get_node("FlavorAndDesc")),
+			Globals.CURR_LORE.bbcode_with_name(tooltip.get_node("FlavorAndDesc")),
 			Formatter.format_number(_amt * power_per_gen),
 			Formatter.format_number(power_consumption_per_gen),
 			Formatter.format_number(power_per_gen)
 		]
 	tooltip.get_node("FlavorAndDesc").bbcode_text = "%s\n%s" % [flavor, description]
-	tooltip.get_node("CostStats/Amt").bbcode_text = "%s %s" % [
-		Formatter.format_number(next_cost()),
-		Globals.LORE_INFO.bbcode(tooltip.get_node("CostStats/Amt")),
+	tooltip.get_node("CostStats/Amt").bbcode_text = "%s " % [
+		Globals.CURR_LORE.bbcode(tooltip.get_node("CostStats/Amt"), "%s " % Formatter.format_number(next_cost()), ""),
 	]
 	tooltip.get_node("OwnedStats/Amt").bbcode_text = Formatter.format_number(_amt)
 	return tooltipRoot

@@ -12,7 +12,7 @@ _global_script_classes=[ {
 "base": "Object",
 "class": "Boost",
 "language": "GDScript",
-"path": "res://Boost.gd"
+"path": "res://scripts/data/Boost.gd"
 }, {
 "base": "ColorRect",
 "class": "ColorTile",
@@ -22,17 +22,17 @@ _global_script_classes=[ {
 "base": "Object",
 "class": "Currency",
 "language": "GDScript",
-"path": "res://Currency.gd"
+"path": "res://scripts/data/Currency.gd"
 }, {
 "base": "Object",
 "class": "CurrencyAmount",
 "language": "GDScript",
-"path": "res://CurrencyAmount.gd"
+"path": "res://scripts/data/CurrencyAmount.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "DragDroppable",
 "language": "GDScript",
-"path": "res://DragDroppable.gd"
+"path": "res://scripts/behavior/DragDroppable.gd"
 }, {
 "base": "Container",
 "class": "FlexGridContainer",
@@ -42,7 +42,7 @@ _global_script_classes=[ {
 "base": "Node2D",
 "class": "Generator",
 "language": "GDScript",
-"path": "res://Generator.gd"
+"path": "res://scripts/obj/Generator.gd"
 }, {
 "base": "Reference",
 "class": "Palette",
@@ -69,16 +69,16 @@ _global_script_class_icons={
 [application]
 
 config/name="OccultIdler"
-run/main_scene="res://Main.tscn"
+run/main_scene="res://scenes/Main.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
-Globals="*res://Globals.gd"
-Formatter="*res://Formatter.gd"
-RootViewportFiltering="*res://RootViewportFiltering.gd"
+Globals="*res://scripts/util/Globals.gd"
+Formatter="*res://scripts/util/Formatter.gd"
+RootViewportFiltering="res://scripts/util/RootViewportFiltering.gd"
 Console="*res://addons/quentincaffeino/console/src/Console.tscn"
-CurrencyService="*res://CurrencyService.gd"
+CurrencyService="*res://scripts/util/CurrencyService.gd"
 
 [display]
 

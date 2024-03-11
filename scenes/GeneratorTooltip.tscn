@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://fonts/Tinos-Italic.tres" type="DynamicFont" id=1]
-[ext_resource path="res://fonts/Tinos-Bold.tres" type="DynamicFont" id=2]
-[ext_resource path="res://fonts/Tinos-BoldItalic.tres" type="DynamicFont" id=3]
+[ext_resource path="res://fonts/Tinos-BoldItalic.tres" type="DynamicFont" id=1]
+[ext_resource path="res://fonts/Tinos-Italic.tres" type="DynamicFont" id=2]
+[ext_resource path="res://fonts/Tinos-Bold.tres" type="DynamicFont" id=3]
 [ext_resource path="res://fonts/Tinos.tres" type="DynamicFont" id=4]
 
 [sub_resource type="Theme" id=1]
@@ -21,9 +21,9 @@ margin_top = 5.0
 margin_right = 187.0
 margin_bottom = 29.0
 theme = SubResource( 1 )
-custom_fonts/bold_italics_font = ExtResource( 3 )
-custom_fonts/italics_font = ExtResource( 3 )
-custom_fonts/bold_font = ExtResource( 2 )
+custom_fonts/bold_italics_font = ExtResource( 1 )
+custom_fonts/italics_font = ExtResource( 1 )
+custom_fonts/bold_font = ExtResource( 3 )
 custom_fonts/normal_font = ExtResource( 4 )
 bbcode_enabled = true
 bbcode_text = "[b]GeneratorName[/b]"
@@ -34,9 +34,9 @@ margin_left = 5.0
 margin_top = 28.0
 margin_right = 331.0
 margin_bottom = 132.0
-custom_fonts/bold_italics_font = ExtResource( 3 )
-custom_fonts/italics_font = ExtResource( 1 )
-custom_fonts/bold_font = ExtResource( 2 )
+custom_fonts/bold_italics_font = ExtResource( 1 )
+custom_fonts/italics_font = ExtResource( 2 )
+custom_fonts/bold_font = ExtResource( 3 )
 custom_fonts/normal_font = ExtResource( 4 )
 bbcode_enabled = true
 bbcode_text = "[i][color=#c4c4c4]Flavor Text[/color][/i]
@@ -57,9 +57,9 @@ margin_top = 20.0
 margin_right = 60.0
 margin_bottom = 42.0
 custom_colors/default_color = Color( 0.768627, 0.768627, 0.768627, 1 )
-custom_fonts/bold_italics_font = ExtResource( 3 )
-custom_fonts/italics_font = ExtResource( 1 )
-custom_fonts/bold_font = ExtResource( 2 )
+custom_fonts/bold_italics_font = ExtResource( 1 )
+custom_fonts/italics_font = ExtResource( 2 )
+custom_fonts/bold_font = ExtResource( 3 )
 custom_fonts/normal_font = ExtResource( 4 )
 bbcode_enabled = true
 bbcode_text = "[i]Owned:[/i]"
@@ -70,9 +70,9 @@ margin_left = 60.0
 margin_top = 20.0
 margin_right = 109.0
 margin_bottom = 40.0
-custom_fonts/bold_italics_font = ExtResource( 3 )
-custom_fonts/italics_font = ExtResource( 1 )
-custom_fonts/bold_font = ExtResource( 2 )
+custom_fonts/bold_italics_font = ExtResource( 1 )
+custom_fonts/italics_font = ExtResource( 2 )
+custom_fonts/bold_font = ExtResource( 3 )
 custom_fonts/normal_font = ExtResource( 4 )
 bbcode_enabled = true
 bbcode_text = "0"
@@ -94,9 +94,9 @@ margin_top = 20.0
 margin_right = 108.0
 margin_bottom = 42.0
 custom_colors/default_color = Color( 0.768627, 0.768627, 0.768627, 1 )
-custom_fonts/bold_italics_font = ExtResource( 3 )
-custom_fonts/italics_font = ExtResource( 1 )
-custom_fonts/bold_font = ExtResource( 2 )
+custom_fonts/bold_italics_font = ExtResource( 1 )
+custom_fonts/italics_font = ExtResource( 2 )
+custom_fonts/bold_font = ExtResource( 3 )
 custom_fonts/normal_font = ExtResource( 4 )
 bbcode_enabled = true
 bbcode_text = "[i]Next Costs:[/i]"
@@ -107,9 +107,9 @@ margin_left = 85.0
 margin_top = 20.0
 margin_right = 134.0
 margin_bottom = 40.0
-custom_fonts/bold_italics_font = ExtResource( 3 )
-custom_fonts/italics_font = ExtResource( 1 )
-custom_fonts/bold_font = ExtResource( 2 )
+custom_fonts/bold_italics_font = ExtResource( 1 )
+custom_fonts/italics_font = ExtResource( 2 )
+custom_fonts/bold_font = ExtResource( 3 )
 custom_fonts/normal_font = ExtResource( 4 )
 bbcode_enabled = true
 bbcode_text = "0"

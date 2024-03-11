@@ -53,7 +53,7 @@ func set_enabled(is_enabled: bool):
 		$Button.disabled = true
 		
 func make_tooltip(_text: String) -> Control:
-	var tooltipRoot = preload("res://GeneratorTooltip.tscn").instance()
+	var tooltipRoot = preload("res://scenes/GeneratorTooltip.tscn").instance()
 	var tooltip = tooltipRoot.get_node("Panel")
 	tooltip.get_node("Name").bbcode_text = "[b]%s[/b]" % tooltip_name
 	

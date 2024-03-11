@@ -1,15 +1,15 @@
 [gd_scene load_steps=13 format=2]
 
-[ext_resource path="res://fonts/Tinos-BoldItalic-12.tres" type="DynamicFont" id=1]
-[ext_resource path="res://fonts/Card-Header-Bold.tres" type="DynamicFont" id=2]
-[ext_resource path="res://fonts/Tinos-Italic-14.tres" type="DynamicFont" id=3]
-[ext_resource path="res://fonts/Tinos-Bold-12.tres" type="DynamicFont" id=4]
-[ext_resource path="res://icon.png" type="Texture" id=5]
-[ext_resource path="res://fonts/Tinos-12.tres" type="DynamicFont" id=6]
-[ext_resource path="res://fonts/Tinos-14.tres" type="DynamicFont" id=7]
-[ext_resource path="res://fonts/Tinos-BoldItalic-14.tres" type="DynamicFont" id=8]
-[ext_resource path="res://fonts/Tinos-Italic-12.tres" type="DynamicFont" id=9]
-[ext_resource path="res://DragDroppable.gd" type="Script" id=10]
+[ext_resource path="res://fonts/Card-Header-Bold.tres" type="DynamicFont" id=1]
+[ext_resource path="res://fonts/Tinos-BoldItalic-14.tres" type="DynamicFont" id=2]
+[ext_resource path="res://fonts/Tinos-12.tres" type="DynamicFont" id=3]
+[ext_resource path="res://fonts/Tinos-Italic-12.tres" type="DynamicFont" id=4]
+[ext_resource path="res://fonts/Tinos-14.tres" type="DynamicFont" id=5]
+[ext_resource path="res://fonts/Tinos-BoldItalic-12.tres" type="DynamicFont" id=6]
+[ext_resource path="res://fonts/Tinos-Italic-14.tres" type="DynamicFont" id=7]
+[ext_resource path="res://fonts/Tinos-Bold-12.tres" type="DynamicFont" id=8]
+[ext_resource path="res://scripts/behavior/DragDroppable.gd" type="Script" id=9]
+[ext_resource path="res://icon.png" type="Texture" id=10]
 
 [sub_resource type="Theme" id=1]
 
@@ -39,10 +39,10 @@ margin_bottom = 29.0
 grow_horizontal = 2
 mouse_filter = 2
 theme = SubResource( 1 )
-custom_fonts/bold_italics_font = ExtResource( 8 )
-custom_fonts/italics_font = ExtResource( 3 )
-custom_fonts/bold_font = ExtResource( 2 )
-custom_fonts/normal_font = ExtResource( 7 )
+custom_fonts/bold_italics_font = ExtResource( 2 )
+custom_fonts/italics_font = ExtResource( 7 )
+custom_fonts/bold_font = ExtResource( 1 )
+custom_fonts/normal_font = ExtResource( 5 )
 bbcode_enabled = true
 bbcode_text = "[center][b]Name[/b][/center]"
 text = "Name"
@@ -54,10 +54,10 @@ margin_top = 108.0
 margin_right = -5.0
 margin_bottom = 163.0
 mouse_filter = 2
-custom_fonts/bold_italics_font = ExtResource( 1 )
-custom_fonts/italics_font = ExtResource( 9 )
-custom_fonts/bold_font = ExtResource( 4 )
-custom_fonts/normal_font = ExtResource( 6 )
+custom_fonts/bold_italics_font = ExtResource( 6 )
+custom_fonts/italics_font = ExtResource( 4 )
+custom_fonts/bold_font = ExtResource( 8 )
+custom_fonts/normal_font = ExtResource( 3 )
 bbcode_enabled = true
 bbcode_text = "[i][color=#c4c4c4]Flavor Text[/color][/i]
 Description"
@@ -73,7 +73,7 @@ margin_top = 32.0
 margin_right = 32.0
 margin_bottom = 96.0
 mouse_filter = 2
-texture = ExtResource( 5 )
+texture = ExtResource( 10 )
 expand = true
 
 [node name="Cost" type="RichTextLabel" parent="Panel"]
@@ -87,17 +87,17 @@ margin_bottom = -5.0
 grow_horizontal = 2
 mouse_filter = 2
 theme = SubResource( 1 )
-custom_fonts/bold_italics_font = ExtResource( 1 )
-custom_fonts/italics_font = ExtResource( 9 )
-custom_fonts/bold_font = ExtResource( 4 )
-custom_fonts/normal_font = ExtResource( 6 )
+custom_fonts/bold_italics_font = ExtResource( 6 )
+custom_fonts/italics_font = ExtResource( 4 )
+custom_fonts/bold_font = ExtResource( 8 )
+custom_fonts/normal_font = ExtResource( 3 )
 bbcode_enabled = true
 bbcode_text = "Cost"
 text = "Cost"
 
 [node name="DragDroppable" type="KinematicBody2D" parent="."]
 input_pickable = true
-script = ExtResource( 10 )
+script = ExtResource( 9 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DragDroppable"]
 shape = SubResource( 2 )

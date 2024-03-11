@@ -3,7 +3,7 @@ extends Node2D
 export var game_speed_factor: int = 60
 
 
-var _Card: PackedScene = preload("res://Card.tscn") 
+var _Card: PackedScene = preload("res://scenes/Card.tscn") 
 
 var _flip_comet = false
 var _comets_clicked = 0
@@ -71,7 +71,7 @@ func _on_comet_passed(comet, clicked: bool):
 	remove_child(comet)
 
 func _spawn_comet():
-	var comet = preload("res://Comet.tscn").instance()
+	var comet = preload("res://scenes/Comet.tscn").instance()
 	comet.position = $Circle.position
 	comet.randomize_transform = true
 	if _flip_comet:

@@ -28,7 +28,7 @@ func _ready():
 
 
 func _make_custom_tooltip(for_text):
-	var tooltipRoot = preload("res://CurrencyHUDTooltip.tscn").instance()
+	var tooltipRoot = preload("res://scenes/CurrencyHUDTooltip.tscn").instance()
 	var name = tooltipRoot.get_node("Panel/Name")
 	name.bbcode_text = "[b][color=#%s]%s[/color][/b]" % [self.type.color.to_html(), self.type.name]
 	

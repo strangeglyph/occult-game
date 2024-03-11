@@ -3,6 +3,7 @@ extends Node
 
 const COLOR_FLAVOR: Color = Color("#c4c4c4")
 const COLOR_COMET: Color = Color.darkgray
+const COLOR_CHANNEL_CIRCLE_HINT: Color = COLOR_COMET
 
 var CURR_LORE = Currency.new(
 	"Lore", 

@@ -5,7 +5,7 @@
 [ext_resource path="res://fonts/Tinos-12.tres" type="DynamicFont" id=3]
 [ext_resource path="res://fonts/Tinos-Italic-12.tres" type="DynamicFont" id=4]
 [ext_resource path="res://fonts/Tinos-14.tres" type="DynamicFont" id=5]
-[ext_resource path="res://fonts/Tinos-BoldItalic-12.tres" type="DynamicFont" id=6]
+[ext_resource path="res://fonts/Tinos-Bold-14.tres" type="DynamicFont" id=6]
 [ext_resource path="res://fonts/Tinos-Italic-14.tres" type="DynamicFont" id=7]
 [ext_resource path="res://fonts/Tinos-Bold-12.tres" type="DynamicFont" id=8]
 [ext_resource path="res://scripts/behavior/DragDroppable.gd" type="Script" id=9]
@@ -14,7 +14,7 @@
 [sub_resource type="Theme" id=1]
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 64.5, 97 )
+extents = Vector2( 64.5, 107 )
 
 [node name="Node2D" type="Node2D"]
 position = Vector2( 300, 300 )
@@ -25,9 +25,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -65.0
-margin_top = -97.0
+margin_top = -107.0
 margin_right = 65.0
-margin_bottom = 97.0
+margin_bottom = 107.0
 mouse_filter = 2
 
 [node name="Name" type="RichTextLabel" parent="Panel"]
@@ -52,12 +52,12 @@ anchor_right = 1.0
 margin_left = 5.0
 margin_top = 108.0
 margin_right = -5.0
-margin_bottom = 163.0
+margin_bottom = 183.0
 mouse_filter = 2
-custom_fonts/bold_italics_font = ExtResource( 6 )
-custom_fonts/italics_font = ExtResource( 4 )
-custom_fonts/bold_font = ExtResource( 8 )
-custom_fonts/normal_font = ExtResource( 3 )
+custom_fonts/bold_italics_font = ExtResource( 2 )
+custom_fonts/italics_font = ExtResource( 7 )
+custom_fonts/bold_font = ExtResource( 6 )
+custom_fonts/normal_font = ExtResource( 5 )
 bbcode_enabled = true
 bbcode_text = "[i][color=#c4c4c4]Flavor Text[/color][/i]
 Description"
@@ -87,7 +87,7 @@ margin_bottom = -5.0
 grow_horizontal = 2
 mouse_filter = 2
 theme = SubResource( 1 )
-custom_fonts/bold_italics_font = ExtResource( 6 )
+custom_fonts/bold_italics_font = ExtResource( 2 )
 custom_fonts/italics_font = ExtResource( 4 )
 custom_fonts/bold_font = ExtResource( 8 )
 custom_fonts/normal_font = ExtResource( 3 )

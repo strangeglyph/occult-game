@@ -112,22 +112,18 @@ func create_card_from_boost(boost: Boost):
 	add_child(card)
 	
 func _on_inner_period_passed(__id):
-	print("Inner period passed")
 	var dreams = CurrencyService.lookup(Globals.CURR_DREAMS)
 	var to_fade = ceil(dreams / 10.0)
-	print("Fading %s dreams" % to_fade)
 	CurrencyService.spend_or_drain(Globals.CURR_DREAMS, to_fade)
 	
 	var impressions = CurrencyService.lookup(Globals.CURR_IMPRESSIONS)
 	if impressions > 10:
 		var to_convert = impressions / 10
-		print("Converting %s impressions to dreams" % to_convert)
 		CurrencyService.spend_or_drain(Globals.CURR_IMPRESSIONS, to_convert)
 		CurrencyService.gain(Globals.CURR_DREAMS, to_convert)
 	
 	var lore = CurrencyService.lookup(Globals.CURR_LORE)
 	if lore > 10:
 		var to_convert = lore / 10
-		print("Convertings %s lore to impressions" % to_convert)
 		CurrencyService.spend_or_drain(Globals.CURR_LORE, to_convert)
 		CurrencyService.gain(Globals.CURR_IMPRESSIONS, to_convert)

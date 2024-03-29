@@ -2,7 +2,7 @@ tool
 extends Control
 
 
-export(String, "Lore") var type_name: String
+export(String, "Lore", "Impressions", "Dreams", "Insight") var type_name: String
 var type: Currency
 export var init_visible: bool = false
 

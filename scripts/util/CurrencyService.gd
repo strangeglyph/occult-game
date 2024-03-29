@@ -4,6 +4,9 @@ signal currency_updated(type, old, new)
 
 var _currencies = {
 	Globals.CURR_LORE: 0,
+	Globals.CURR_IMPRESSIONS: 0,
+	Globals.CURR_DREAMS: 0,
+	Globals.CURR_INSIGHT: 0
 }
 
 

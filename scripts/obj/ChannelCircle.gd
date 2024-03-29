@@ -11,6 +11,8 @@ var _cards_in_circle = Array()
 func _ready():
 	connect("mouse_entered", self, "_do_mouse_enter")
 	connect("mouse_exited", self, "_do_mouse_exit")
+	DragDropManager.connect("begin_drag", self, "_drag_start")
+	DragDropManager.connect("end_drag", self, "_drag_end")
 
 func _draw():
 	if Engine.editor_hint:
@@ -19,7 +21,9 @@ func _draw():
 		if not _mouse_inside:
 			draw_arc(Vector2.ZERO, radius, 0, TAU, 64, Globals.COLOR_CHANNEL_CIRCLE_HINT, 2, true)
 		else:
-			draw_arc(Vector2.ZERO, radius, 0, TAU, 64, Color.cyan, 2, true)
+			draw_arc(Vector2.ZERO, radius, 0, TAU, 64, Globals.COLOR_CHANNEL_CIRCLE_DROP_HINT, 2, true)
+	elif _cards_in_circle.size() > 0:
+		draw_arc(Vector2.ZERO, radius, 0, TAU, 64, Globals.COLOR_CHANNEL_CIRCLE_ACTIVE_CHANNEL, 2, true)
 
 func _do_mouse_enter():
 	_mouse_inside = true
@@ -31,8 +35,7 @@ func _do_mouse_exit():
 	
 func _drag_start(obj):
 	_is_card_drag = true
-	if _mouse_inside:
-		_cards_in_circle.erase(obj)
+	_cards_in_circle.erase(obj)
 	update()
 	
 func _drag_end(obj):

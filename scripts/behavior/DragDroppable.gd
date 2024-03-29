@@ -17,17 +17,20 @@ func begin_drag():
 	_offset = $"..".position - get_global_mouse_position()
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 	emit_signal("begin_drag")
+	DragDropManager.emit_signal("begin_drag", self)
 
 func end_drag():
 	_is_dragging = false
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	emit_signal("end_drag")
+	DragDropManager.emit_signal("end_drag", self)
 
 func _process(delta):
 	if _is_dragging:
 		if Input.is_mouse_button_pressed(BUTTON_LEFT):
 			$"..".position = get_global_mouse_position() + _offset
 			emit_signal("drag_update")
+			emit_signal("drag_update", self)
 		else:
 			end_drag()
 

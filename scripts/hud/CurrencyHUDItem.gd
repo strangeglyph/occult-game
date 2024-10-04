@@ -43,5 +43,8 @@ func _on_currency_updated(type: Currency, old: int, new: int):
 	$Count.clear()
 	$Count.add_text(Formatter.format_number(new))
 	
+	if new != 0:
+		get_parent().show()
+	
 	if new != 0 and not init_visible:
 		self.show()

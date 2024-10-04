@@ -57,6 +57,7 @@ texture = ExtResource( 5 )
 [node name="HUDLayer" type="CanvasLayer" parent="."]
 
 [node name="Panel" type="Panel" parent="HUDLayer"]
+visible = false
 margin_right = 210.0
 margin_bottom = 252.0
 

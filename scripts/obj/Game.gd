@@ -22,7 +22,6 @@ func _ready():
 	$Orbital1.connect("orbital_period_passed", self, "_on_inner_period_passed")
 	
 	create_card_from_boost(Globals.BOOST_INITIATION)
-	
 
 func _set_game_speed(speed: int):
 	if speed < 1:

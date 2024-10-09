@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scripts/obj/Game.gd" type="Script" id=1]
 [ext_resource path="res://scripts/obj/Orbital.gd" type="Script" id=2]
@@ -9,9 +9,24 @@
 [ext_resource path="res://scenes/Generator.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/CurrencyHUDItem.tscn" type="PackedScene" id=8]
 
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+float dist_from_center(vec2 uv) {
+	float relx = uv.x - 0.5;
+	float rely = uv.y - 0.5;
+	return relx*relx + rely*rely;
+}
+
+void fragment() {
+	COLOR = vec4(0,0,0,dist_from_center(UV)/0.125);
+}"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+
 [node name="Game" type="Node2D"]
 script = ExtResource( 1 )
-game_speed_factor = 30
 
 [node name="Candle" parent="." instance=ExtResource( 7 )]
 tooltip_name = "Candles"
@@ -62,30 +77,15 @@ margin_right = 210.0
 margin_bottom = 252.0
 
 [node name="Lore" parent="HUDLayer/Panel" instance=ExtResource( 8 )]
-anchor_bottom = 0.125
-margin_bottom = -336.5
 type_name = "Lore"
 
-[node name="Impressions" parent="HUDLayer/Panel" instance=ExtResource( 8 )]
-anchor_bottom = 0.125
-margin_top = 40.0
-margin_right = -210.0
-margin_bottom = 8.5
-type_name = "Impressions"
+[node name="OverlayLayer" type="CanvasLayer" parent="."]
 
-[node name="Dreams" parent="HUDLayer/Panel" instance=ExtResource( 8 )]
-anchor_bottom = 0.125
-margin_top = 80.0
-margin_right = -210.0
-margin_bottom = 48.5
-type_name = "Dreams"
-
-[node name="Insight" parent="HUDLayer/Panel" instance=ExtResource( 8 )]
-anchor_bottom = 0.125
-margin_top = 120.0
-margin_right = -210.0
-margin_bottom = 88.5
-type_name = "Insight"
+[node name="ColorRect" type="ColorRect" parent="OverlayLayer"]
+material = SubResource( 2 )
+margin_right = 1024.0
+margin_bottom = 601.0
+color = Color( 0.380392, 0.25098, 0.25098, 1 )
 
 [editable path="Candle"]
 [editable path="Geometry"]

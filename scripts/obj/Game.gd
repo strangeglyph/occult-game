@@ -55,10 +55,36 @@ func _connect_generator(gen: Generator):
 	$Orbital1.connect("orbital_updated", gen, "_on_orbital_updated")
 
 func _on_candle_bought(old_amt, new_amt):
-	$Orbital1.visible = true
-	$Orbital1.set_process(true)
+	Console.write_line("Candle bought")
+	if new_amt == 1:
+		$Tween.interpolate_method($OverlayLayer/Shadow, "set_radius", 0.013, 0.125, 
+			1.0, Tween.TRANS_SINE, Tween.EASE_IN_OUT);
+		$Tween.interpolate_method($OverlayLayer/Shadow, "set_penumbra_size", 1, 0.3,
+			1.0, Tween.TRANS_SINE, Tween.EASE_IN_OUT);
+		$Tween.interpolate_method($OverlayLayer/Shadow, "set_color", Color.black, Color(0.1, 0.1, 0.1, 0.9),
+			1.0, Tween.TRANS_SINE, Tween.EASE_IN_OUT);
+		$Tween.start()
 	if new_amt == 2:
-		$Geometry.enabled = true
+		$Tween.interpolate_method($OverlayLayer/Shadow, "set_radius", 0.125, 0.25, 
+			1.0, Tween.TRANS_SINE, Tween.EASE_IN_OUT);
+		$Tween.interpolate_method($OverlayLayer/Shadow, "set_penumbra_size", 0.3, 0.2,
+			1.0, Tween.TRANS_SINE, Tween.EASE_IN_OUT);
+		$Tween.interpolate_method($OverlayLayer/Shadow, "set_color", Color(0.1, 0.1, 0.1, 0.9), Color(0.3, 0.3, 0.3, 0.7),
+			1.0, Tween.TRANS_SINE, Tween.EASE_IN_OUT);
+		$Tween.start()
+	if new_amt == 3:
+		$Tween.interpolate_method($OverlayLayer/Shadow, "set_radius", 0.25, 1, 
+			1.0, Tween.TRANS_SINE, Tween.EASE_IN_OUT);
+		$Tween.interpolate_method($OverlayLayer/Shadow, "set_penumbra_size", 0.2, 0.0,
+			1.0, Tween.TRANS_SINE, Tween.EASE_IN_OUT);
+		$Tween.interpolate_method($OverlayLayer/Shadow, "set_color", Color(0.3, 0.3, 0.3, 0.7), Color(1.0, 1.0, 1.0, 0.0),
+			1.0, Tween.TRANS_SINE, Tween.EASE_IN_OUT);
+		$Tween.interpolate_callback($OverlayLayer/Shadow, 1.0, "queue_free")
+		$Tween.start()
+	# $Orbital1.visible = true
+	# $Orbital1.set_process(true)
+	# if new_amt == 2:
+	#	$Geometry.enabled = true
 
 func _on_comet_clicked():
 	_comets_clicked += 1

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scripts/obj/Game.gd" type="Script" id=1]
 [ext_resource path="res://scripts/obj/Orbital.gd" type="Script" id=2]
@@ -8,22 +8,53 @@
 [ext_resource path="res://img/geometry.png" type="Texture" id=6]
 [ext_resource path="res://scenes/Generator.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/CurrencyHUDItem.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/Shadow.gd" type="Script" id=9]
 
 [sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
 
-float dist_from_center(vec2 uv) {
-	float relx = uv.x - 0.5;
-	float rely = uv.y - 0.5;
-	return relx*relx + rely*rely;
+// uv relative position of the illumination center
+uniform float center_x : hint_range(0,1) = 0.5;
+uniform float center_y : hint_range(0,1) = 0.5;
+uniform float aspect_ratio = 1.71;
+// average radius of the illumination effect relative to the width of the scren
+uniform float illumination_radius : hint_range(0,1) = .125;
+// penumbra size relative to the illumination radius
+uniform float penumbra_size : hint_range(0,1) = 0.05;
+// color outside the illumination effect
+uniform vec4 shadow_color : hint_color = vec4(0,0,0,1);
+// speed at which the illumination radius oscillates in seconds
+uniform float oscillate_speed : hint_range(0,10) = 10;
+// oscillation effect size relative to the illumination radius
+uniform float oscillate_effect_size: hint_range(0,1) = 0.1;
+
+const float PI = 3.141;
+
+float sq_len(vec2 val) {
+	return val.x*val.x + val.y*val.y;
 }
 
+
 void fragment() {
-	COLOR = vec4(0,0,0,dist_from_center(UV)/0.125);
+	float dist_sq = sq_len(vec2(UV.x - center_x, (UV.y - center_y) / aspect_ratio));
+	
+	float illum = illumination_radius * (1.0 + oscillate_effect_size * sin(TIME / oscillate_speed * PI));
+	float penumbra_start_sq = sq_len(vec2(illum * (1.0 - penumbra_size)));
+	float penumbra_end_sq = sq_len(vec2(illum * (1.0 + penumbra_size)));
+	
+	COLOR = vec4(shadow_color.rgb, smoothstep(penumbra_start_sq, penumbra_end_sq, dist_sq));
 }"
 
 [sub_resource type="ShaderMaterial" id=2]
 shader = SubResource( 1 )
+shader_param/center_x = 0.5
+shader_param/center_y = 0.262
+shader_param/aspect_ratio = 1.71
+shader_param/illumination_radius = 0.013
+shader_param/penumbra_size = 1.0
+shader_param/shadow_color = Color( 0, 0, 0, 1 )
+shader_param/oscillate_speed = 8.0
+shader_param/oscillate_effect_size = 0.1
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 1 )
@@ -33,14 +64,13 @@ tooltip_name = "Candles"
 tooltip_flavor = "A Light in the Darkness"
 
 [node name="Button" parent="Candle" index="0"]
-margin_left = 512.0
 margin_top = 123.0
-margin_right = 576.0
 margin_bottom = 187.0
 texture_normal = ExtResource( 3 )
 expand = true
 
 [node name="Geometry" parent="." instance=ExtResource( 7 )]
+visible = false
 power_consumption_per_gen = 1
 power_per_gen = 4
 orbital_trigger_angle = 308.6
@@ -59,12 +89,14 @@ texture_normal = ExtResource( 6 )
 expand = true
 
 [node name="Orbital1" type="Sprite" parent="."]
+visible = false
 position = Vector2( 542, 314 )
 scale = Vector2( 2.2, 2.2 )
 texture = ExtResource( 4 )
 script = ExtResource( 2 )
 
 [node name="Circle" type="Sprite" parent="."]
+visible = false
 position = Vector2( 544, 321 )
 scale = Vector2( 0.8, 0.8 )
 texture = ExtResource( 5 )
@@ -81,11 +113,15 @@ type_name = "Lore"
 
 [node name="OverlayLayer" type="CanvasLayer" parent="."]
 
-[node name="ColorRect" type="ColorRect" parent="OverlayLayer"]
+[node name="Shadow" type="ColorRect" parent="OverlayLayer"]
 material = SubResource( 2 )
 margin_right = 1024.0
-margin_bottom = 601.0
+margin_bottom = 600.0
+mouse_filter = 2
 color = Color( 0.380392, 0.25098, 0.25098, 1 )
+script = ExtResource( 9 )
+
+[node name="Tween" type="Tween" parent="."]
 
 [editable path="Candle"]
 [editable path="Geometry"]

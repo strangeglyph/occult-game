@@ -6,6 +6,9 @@ const COLOR_COMET: Color = Color.darkgray
 const COLOR_CHANNEL_CIRCLE_HINT: Color = COLOR_COMET
 const COLOR_CHANNEL_CIRCLE_ACTIVE_CHANNEL = Color.goldenrod
 const COLOR_CHANNEL_CIRCLE_DROP_HINT = Color.cyan
+const COLOR_INK: Color = Color("#050546")
+const COLOR_INK_ACTIVE: Color = Color.gold
+const COLOR_INK_ACTIVE_TRANS: Color = Color(COLOR_INK_ACTIVE.r, COLOR_INK_ACTIVE.g, COLOR_INK_ACTIVE.b, 0.0)
 
 
 var CURR_LORE = Currency.new(

@@ -80,6 +80,7 @@ RootViewportFiltering="res://scripts/util/RootViewportFiltering.gd"
 Console="*res://addons/quentincaffeino/console/src/Console.tscn"
 CurrencyService="*res://scripts/util/CurrencyService.gd"
 DragDropManager="*res://scripts/util/DragDropManager.gd"
+GameFlags="*res://scripts/util/GameFlags.gd"
 
 [display]
 

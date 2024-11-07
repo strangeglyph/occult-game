@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scripts/obj/Game.gd" type="Script" id=1]
 [ext_resource path="res://scripts/obj/Orbital.gd" type="Script" id=2]
@@ -8,7 +8,8 @@
 [ext_resource path="res://img/geometry.png" type="Texture" id=6]
 [ext_resource path="res://scenes/Generator.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/CurrencyHUDItem.tscn" type="PackedScene" id=8]
-[ext_resource path="res://scenes/Shadow.gd" type="Script" id=9]
+[ext_resource path="res://scripts/hud/Shadow.gd" type="Script" id=9]
+[ext_resource path="res://scenes/Book.tscn" type="PackedScene" id=10]
 
 [sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
@@ -20,7 +21,7 @@ uniform float aspect_ratio = 1.71;
 // average radius of the illumination effect relative to the width of the scren
 uniform float illumination_radius : hint_range(0,1) = .125;
 // penumbra size relative to the illumination radius
-uniform float penumbra_size : hint_range(0,1) = 0.05;
+uniform float penumbra_size : hint_range(0,2) = 0.05;
 // color outside the illumination effect
 uniform vec4 shadow_color : hint_color = vec4(0,0,0,1);
 // speed at which the illumination radius oscillates in seconds
@@ -101,6 +102,10 @@ position = Vector2( 544, 321 )
 scale = Vector2( 0.8, 0.8 )
 texture = ExtResource( 5 )
 
+[node name="Book" parent="." instance=ExtResource( 10 )]
+visible = false
+position = Vector2( 512, 578 )
+
 [node name="HUDLayer" type="CanvasLayer" parent="."]
 
 [node name="Panel" type="Panel" parent="HUDLayer"]
@@ -123,5 +128,10 @@ script = ExtResource( 9 )
 
 [node name="Tween" type="Tween" parent="."]
 
+[connection signal="book_opened" from="Book" to="." method="_on_Book_book_opened"]
+[connection signal="page_filled" from="Book/WritingPage" to="." method="_on_WritingPage_page_filled"]
+[connection signal="rune_drawn" from="Book/WritingPage" to="." method="_on_WritingPage_rune_drawn"]
+
 [editable path="Candle"]
 [editable path="Geometry"]
+[editable path="Book"]

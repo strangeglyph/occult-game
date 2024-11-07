@@ -10,6 +10,8 @@ var _comets_clicked = 0
 var _comets_missed = 0
 var _comets_active = 0
 
+var _book_tween = null
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	randomize()
@@ -20,8 +22,7 @@ func _ready():
 	_connect_generator($Geometry)
 	
 	$Orbital1.connect("orbital_period_passed", self, "_on_inner_period_passed")
-	
-	create_card_from_boost(Globals.BOOST_INITIATION)
+
 
 func _set_game_speed(speed: int):
 	if speed < 1:
@@ -32,7 +33,7 @@ func _set_game_speed(speed: int):
 # For console command
 func _gain_currency(type: String, amt: int):
 	if type == "lore":
-		CurrencyService.gain(CurrencyService	.Type.LORE, amt)
+		CurrencyService.gain(Globals.CURR_LORE, amt)
 	else:
 		Console.write_line("Unknown currency: " + type)
 
@@ -55,7 +56,6 @@ func _connect_generator(gen: Generator):
 	$Orbital1.connect("orbital_updated", gen, "_on_orbital_updated")
 
 func _on_candle_bought(old_amt, new_amt):
-	Console.write_line("Candle bought")
 	if new_amt == 1:
 		$Tween.interpolate_method($OverlayLayer/Shadow, "set_radius", 0.013, 0.125, 
 			1.0, Tween.TRANS_SINE, Tween.EASE_IN_OUT);
@@ -64,6 +64,11 @@ func _on_candle_bought(old_amt, new_amt):
 		$Tween.interpolate_method($OverlayLayer/Shadow, "set_color", Color.black, Color(0.1, 0.1, 0.1, 0.9),
 			1.0, Tween.TRANS_SINE, Tween.EASE_IN_OUT);
 		$Tween.start()
+		
+		$Book.visible = true
+		$Book/BookCollider.input_pickable = true
+		$Book.modulate = Color.transparent
+		get_tree().create_tween().tween_property($Book, "modulate", Color.white, .5)
 	if new_amt == 2:
 		$Tween.interpolate_method($OverlayLayer/Shadow, "set_radius", 0.125, 0.25, 
 			1.0, Tween.TRANS_SINE, Tween.EASE_IN_OUT);
@@ -152,3 +157,35 @@ func _on_inner_period_passed(__id):
 		var to_convert = lore / 10
 		CurrencyService.spend_or_drain(Globals.CURR_LORE, to_convert)
 		CurrencyService.gain(Globals.CURR_IMPRESSIONS, to_convert)
+
+
+func _on_WritingPage_rune_drawn():
+	CurrencyService.gain(Globals.CURR_LORE, $Candle.amt())
+
+
+func _on_WritingPage_page_filled():
+	CurrencyService.gain(Globals.CURR_INSIGHT, 1)
+	if not GameFlags.WRITING_PAGE_FILLED_ONCE:
+		GameFlags.WRITING_PAGE_FILLED_ONCE = true
+		create_card_from_boost(Globals.BOOST_INITIATION)
+
+func _on_Book_book_opened():
+	if _book_tween:
+		_book_tween.kill()
+	_book_tween = get_tree().create_tween()
+	var travel_dist = $Book.position.y - Globals.BOOK_ACTIVE_POS.y
+	_book_tween.tween_property($Book, "position", Globals.BOOK_ACTIVE_POS, travel_dist / 200.0)\
+		.set_trans(Tween.TRANS_SINE)\
+		.set_ease(Tween.EASE_IN_OUT)
+
+
+func _input(event):
+	if Input.is_action_just_pressed("ui_cancel") and $Book._book_opened:
+		$Book.close()
+		if _book_tween:
+			_book_tween.kill()
+		_book_tween = get_tree().create_tween()
+		var travel_dist = Globals.BOOK_INACTIVE_POS.y - $Book.position.y
+		_book_tween.tween_property($Book, "position", Globals.BOOK_INACTIVE_POS, travel_dist / 200.0)\
+			.set_trans(Tween.TRANS_SINE)\
+			.set_ease(Tween.EASE_IN_OUT)

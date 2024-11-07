@@ -25,6 +25,9 @@ func next_cost() -> int:
 		return initial_cost[_amt]
 	return int(initial_cost[-1] * pow(cost_scale, _amt - initial_cost.size() + 1))
 
+func amt() -> int:
+	return _amt
+
 func _on_Button_pressed():
 	if CurrencyService.spend_if_possible(Globals.CURR_LORE, next_cost()):
 		_amt += 1

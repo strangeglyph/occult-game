@@ -10,6 +10,8 @@ const COLOR_INK: Color = Color("#050546")
 const COLOR_INK_ACTIVE: Color = Color.gold
 const COLOR_INK_ACTIVE_TRANS: Color = Color(COLOR_INK_ACTIVE.r, COLOR_INK_ACTIVE.g, COLOR_INK_ACTIVE.b, 0.0)
 
+const BOOK_ACTIVE_POS = Vector2(512,378)
+const BOOK_INACTIVE_POS = Vector2(512,578)
 
 var CURR_LORE = Currency.new(
 	"Lore", 

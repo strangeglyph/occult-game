@@ -30,11 +30,11 @@ func _process(delta):
 		if Input.is_mouse_button_pressed(BUTTON_LEFT):
 			$"..".position = get_global_mouse_position() + _offset
 			emit_signal("drag_update")
-			emit_signal("drag_update", self)
+			DragDropManager.emit_signal("drag_update", self)
 		else:
 			end_drag()
 
-func _drag_input_event(viewport, event, shape_idx):
+func _drag_input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton:
 		if event.button_index == BUTTON_LEFT:
 			if event.pressed:

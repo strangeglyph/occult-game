@@ -1,0 +1,51 @@
+[gd_resource type="Shader" format=2]
+
+[resource]
+code = "shader_type canvas_item;
+
+// uv relative position of the illumination center
+uniform float fade_in_time  = 4.0;
+uniform float START_TIME = 0.0;
+uniform float border_width : hint_range(0.0, 1.0) = 0.05;
+uniform vec4 border_color : hint_color = vec4(1.0, 1.0, 1.0, 1.0);
+uniform vec4 overlay_color : hint_color = vec4(0.0, 0.0, 0.0, 0.0);
+
+uniform int width = 200;
+uniform int height = 200;
+
+uniform sampler2D NOISE;
+
+const float FADE_OVER_TIME = 0.5;
+
+void fragment() {
+	vec4 tex = texture(TEXTURE, UV);
+	
+	vec2 noiseUV = vec2(UV);
+	if (width >= height) {
+		noiseUV.y *= float(height) / float(width);
+	} else {
+		noiseUV.x *= float(width) / float(height);
+	}
+	
+	float noise = texture(NOISE, noiseUV).r;
+    
+    
+	float elapsed_time = TIME - START_TIME;
+	
+	float threshold = 0.0;
+	float max_threshold = 1.0 + border_width;
+	//if (elapsed_time <= fade_in_time) {
+		threshold = max_threshold * (1.0 - smoothstep(0.0, fade_in_time, elapsed_time));
+	//} else {
+	//	float frac_over_time = clamp(elapsed_time - fade_in_time, 0.0, FADE_OVER_TIME) / FADE_OVER_TIME;
+	//	threshold = mix(smoothstep(0.0, fade_in_time, fade_in_time), 1.0, frac_over_time);
+	//}
+    
+	if (noise + border_width >= threshold) {
+		float frac_out_of_border = clamp((noise + border_width - threshold) / border_width, 0.0, 1.0);
+		COLOR = mix(border_color, tex, frac_out_of_border);
+    } else {
+        COLOR = overlay_color;
+    }
+	
+}"

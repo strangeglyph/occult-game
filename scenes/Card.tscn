@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://fonts/Card-Header-Bold.tres" type="DynamicFont" id=1]
 [ext_resource path="res://fonts/Tinos-BoldItalic-14.tres" type="DynamicFont" id=2]
@@ -10,34 +10,42 @@
 [ext_resource path="res://fonts/Tinos-Bold-12.tres" type="DynamicFont" id=8]
 [ext_resource path="res://scripts/behavior/DragDroppable.gd" type="Script" id=9]
 [ext_resource path="res://icon.png" type="Texture" id=10]
+[ext_resource path="res://gametheme.tres" type="Theme" id=11]
 
 [sub_resource type="Theme" id=1]
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 64.5, 107 )
+extents = Vector2( 144, 88.5 )
 
-[node name="Node2D" type="Node2D"]
-position = Vector2( 300, 300 )
+[node name="Card" type="Node2D"]
 
-[node name="Panel" type="Panel" parent="."]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -65.0
-margin_top = -107.0
-margin_right = 65.0
-margin_bottom = 107.0
-mouse_filter = 2
-
-[node name="Name" type="RichTextLabel" parent="Panel"]
+[node name="PanelContainer" type="PanelContainer" parent="."]
+use_parent_material = true
 anchor_right = 1.0
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = 29.0
-grow_horizontal = 2
+anchor_bottom = 1.0
+margin_right = 288.0
+margin_bottom = 181.0
 mouse_filter = 2
+theme = ExtResource( 11 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+use_parent_material = true
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 281.0
+margin_bottom = 174.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Name" type="RichTextLabel" parent="PanelContainer/VBoxContainer"]
+use_parent_material = true
+margin_right = 274.0
+margin_bottom = 20.0
+grow_horizontal = 2
+rect_min_size = Vector2( 200, 20 )
+mouse_filter = 2
+size_flags_horizontal = 3
 theme = SubResource( 1 )
 custom_fonts/bold_italics_font = ExtResource( 2 )
 custom_fonts/italics_font = ExtResource( 7 )
@@ -47,13 +55,50 @@ bbcode_enabled = true
 bbcode_text = "[center][b]Name[/b][/center]"
 text = "Name"
 
-[node name="FlavorAndDesc" type="RichTextLabel" parent="Panel"]
-anchor_right = 1.0
-margin_left = 5.0
-margin_top = 108.0
-margin_right = -5.0
-margin_bottom = 183.0
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+use_parent_material = true
+margin_top = 26.0
+margin_right = 274.0
+margin_bottom = 167.0
 mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+use_parent_material = true
+margin_right = 131.0
+margin_bottom = 141.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Icon" type="TextureRect" parent="PanelContainer/VBoxContainer/HBoxContainer/AspectRatioContainer"]
+use_parent_material = true
+margin_top = 5.0
+margin_right = 131.0
+margin_bottom = 136.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 10 )
+expand = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+use_parent_material = true
+margin_left = 143.0
+margin_right = 274.0
+margin_bottom = 141.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="FlavorAndDesc" type="RichTextLabel" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+use_parent_material = true
+margin_right = 131.0
+margin_bottom = 115.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 custom_fonts/bold_italics_font = ExtResource( 2 )
 custom_fonts/italics_font = ExtResource( 7 )
 custom_fonts/bold_font = ExtResource( 6 )
@@ -65,27 +110,15 @@ text = "Flavor Text
 Description"
 scroll_active = false
 
-[node name="Icon" type="TextureRect" parent="Panel"]
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = -32.0
-margin_top = 32.0
-margin_right = 32.0
-margin_bottom = 96.0
-mouse_filter = 2
-texture = ExtResource( 10 )
-expand = true
-
-[node name="Cost" type="RichTextLabel" parent="Panel"]
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 5.0
-margin_top = -25.0
-margin_right = -5.0
-margin_bottom = -5.0
+[node name="Cost" type="RichTextLabel" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+use_parent_material = true
+margin_top = 121.0
+margin_right = 131.0
+margin_bottom = 141.0
 grow_horizontal = 2
+rect_min_size = Vector2( 100, 20 )
 mouse_filter = 2
+size_flags_horizontal = 3
 theme = SubResource( 1 )
 custom_fonts/bold_italics_font = ExtResource( 2 )
 custom_fonts/italics_font = ExtResource( 4 )
@@ -100,4 +133,5 @@ input_pickable = true
 script = ExtResource( 9 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DragDroppable"]
+position = Vector2( 142, 90 )
 shape = SubResource( 2 )

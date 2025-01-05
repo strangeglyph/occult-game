@@ -77,6 +77,8 @@ func _on_candle_bought(old_amt, new_amt):
 		$Tween.interpolate_method($OverlayLayer/Shadow, "set_color", Color(0.1, 0.1, 0.1, 0.9), Color(0.3, 0.3, 0.3, 0.7),
 			1.0, Tween.TRANS_SINE, Tween.EASE_IN_OUT);
 		$Tween.start()
+		
+		create_card_from_boost(Globals.BOOST_INITIATION);
 	if new_amt == 3:
 		$Tween.interpolate_method($OverlayLayer/Shadow, "set_radius", 0.25, 1, 
 			1.0, Tween.TRANS_SINE, Tween.EASE_IN_OUT);
@@ -115,16 +117,16 @@ func _spawn_comet():
 	
 func create_card_from_boost(boost: Boost):
 	var card = _Card.instance()
-	var panel = card.get_node("Panel")
+	var panel = card.get_node("PanelContainer/VBoxContainer")
 	panel.get_node("Name").bbcode_text = "[center][b]%s[/b][/center]" % boost.name
 	
 	var flavor = "[i][color=#%s]%s[/color][/i]" % [Globals.COLOR_FLAVOR.to_html(), boost.flavor]
 	var description = boost.description
-	panel.get_node("FlavorAndDesc").bbcode_text = "%s\n%s" % [flavor, description]
+	panel.get_node("HBoxContainer/VBoxContainer/FlavorAndDesc").bbcode_text = "%s\n%s" % [flavor, description]
 	
-	panel.get_node("Icon").texture = boost.image
+	panel.get_node("HBoxContainer/AspectRatioContainer/Icon").texture = boost.image
 	
-	var cost_lbl = panel.get_node("Cost")
+	var cost_lbl = panel.get_node("HBoxContainer/VBoxContainer/Cost")
 	var cost = ""
 	var first = true
 	for curr_amt in boost.cost:
@@ -133,7 +135,7 @@ func create_card_from_boost(boost: Boost):
 		else:
 			first = false
 		
-		cost += curr_amt.currency.bbcode(cost_lbl, "%s " % Formatter.format_number(curr_amt.amount), "")
+		cost += curr_amt.to_bbcode(cost_lbl)
 			
 	cost_lbl.bbcode_text = cost
 	

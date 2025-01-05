@@ -3,11 +3,31 @@
 [resource]
 code = "shader_type canvas_item;
 
-// uv relative position of the illumination center
 uniform float fade_in_time  = 4.0;
 uniform float START_TIME = 0.0;
-uniform float border_width : hint_range(0.0, 1.0) = 0.05;
-uniform vec4 border_color : hint_color = vec4(1.0, 1.0, 1.0, 1.0);
+
+/*
+*  overlay          border color       border color       border color           tex
+*  color                 a                  b                  c                color
+*
+*    |                   |                  |                  |                  |
+*    v                   v                  v                  v                  v
+*
+*    |  border_width_ a  |  border_width_b  |  border_width_c  |  border_width_d  |
+*/
+
+uniform float border_width_a : hint_range(0.0, 1.0) = 0.05;
+uniform vec4 border_color_a : hint_color = vec4(1.0, 1.0, 1.0, 1.0);
+
+uniform float border_width_b : hint_range(0.0, 1.0) = 0.05;
+uniform vec4 border_color_b : hint_color = vec4(1.0, 1.0, 1.0, 1.0);
+
+uniform float border_width_c : hint_range(0.0, 1.0) = 0.05;
+uniform vec4 border_color_c : hint_color = vec4(1.0, 1.0, 1.0, 1.0);
+
+uniform float border_width_d : hint_range(0.0, 1.0) = 0.05;
+//uniform vec4 border_color_d : hint_color = vec4(1.0, 1.0, 1.0, 1.0);
+
 uniform vec4 overlay_color : hint_color = vec4(0.0, 0.0, 0.0, 0.0);
 
 uniform int width = 200;
@@ -33,18 +53,30 @@ void fragment() {
 	float elapsed_time = TIME - START_TIME;
 	
 	float threshold = 0.0;
-	float max_threshold = 1.0 + border_width;
+	float max_threshold = 1.0 + border_width_a + border_width_b + border_width_c + border_width_d;
 	//if (elapsed_time <= fade_in_time) {
 		threshold = max_threshold * (1.0 - smoothstep(0.0, fade_in_time, elapsed_time));
 	//} else {
 	//	float frac_over_time = clamp(elapsed_time - fade_in_time, 0.0, FADE_OVER_TIME) / FADE_OVER_TIME;
 	//	threshold = mix(smoothstep(0.0, fade_in_time, fade_in_time), 1.0, frac_over_time);
 	//}
-    
-	if (noise + border_width >= threshold) {
-		float frac_out_of_border = clamp((noise + border_width - threshold) / border_width, 0.0, 1.0);
-		COLOR = mix(border_color, tex, frac_out_of_border);
-    } else {
+    if (noise + border_width_d >= threshold) {
+		float tex_fade_in = smoothstep(0.0, border_width_d, noise + border_width_d - threshold);
+		COLOR = mix(border_color_c, tex, tex_fade_in);
+		//COLOR = vec4(0.0, 1.0, 1.0, 1.0);
+	} else if (noise + border_width_c + border_width_d >= threshold) {
+		float border_c_fade_in = smoothstep(0.0, border_width_c, noise + border_width_c + border_width_d - threshold);
+		COLOR = mix(border_color_b, border_color_c, border_c_fade_in);
+		//COLOR = vec4(0.0, 1.0, 0.0, 1.0);
+    } else if (noise + border_width_b + border_width_c + border_width_d >= threshold) {
+		float border_b_fade_in = smoothstep(0.0, border_width_b, noise + border_width_b + border_width_c + border_width_d - threshold);
+		COLOR = mix(border_color_a, border_color_b, border_b_fade_in);
+		//COLOR = vec4(1.0, 1.0, 0.0, 1.0);
+	} else if (noise + border_width_a + border_width_b + border_width_c + border_width_d >= threshold) {
+		float border_a_fade_in = smoothstep(0.0, border_width_a, noise + border_width_a + border_width_b + border_width_c + border_width_d - threshold);
+		COLOR = mix(overlay_color, border_color_a, border_a_fade_in);
+		//COLOR = vec4(1.0, 0.0, 0.0, 1.0);
+	} else {
         COLOR = overlay_color;
     }
 	

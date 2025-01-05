@@ -10,3 +10,8 @@ func _init(currency: Currency, amount: int):
 	self.amount = amount
 
 
+func to_bbcode(label: RichTextLabel):
+	return "%s %s" % [
+		currency.bbcode_icon_only(label),
+		Formatter.format_number(amount)
+	]

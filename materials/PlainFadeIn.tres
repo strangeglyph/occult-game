@@ -1,0 +1,20 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=2]
+
+[ext_resource path="res://shaders/NoiseFadein.tres" type="Shader" id=1]
+[ext_resource path="res://img/noise/Spokes 8 - 256x256.png" type="Texture" id=2]
+
+[resource]
+shader = ExtResource( 1 )
+shader_param/fade_in_time = 4.0
+shader_param/START_TIME = 0.0
+shader_param/border_width_a = 0.0
+shader_param/border_color_a = Color( 0, 0, 0, 0 )
+shader_param/border_width_b = 0.0
+shader_param/border_color_b = Color( 1, 1, 1, 0 )
+shader_param/border_width_c = 0.1
+shader_param/border_color_c = Color( 0.470588, 0.470588, 0.729412, 0.639216 )
+shader_param/border_width_d = 0.1
+shader_param/overlay_color = Color( 0, 0, 0, 0 )
+shader_param/width = 200
+shader_param/height = 200
+shader_param/NOISE = ExtResource( 2 )
